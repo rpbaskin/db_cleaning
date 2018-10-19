@@ -5,6 +5,7 @@ Created on Fri Sept 28 12:36:44 2018
 
 Cleans up databases for blasto functionality
 
+COPYRIGHT (c) R Paul Baskin 28 September 2018
 @author: rpbas
 """
 import os.path
