@@ -24,7 +24,7 @@ def cleanupstring(listobj, bad, good):
     i=0
     for each in listobj:
         if bad in each:
-            data[i] = each.replace(bad, good)
+            listobj[i] = each.replace(bad, good)
         i+=1
         
 #Prints out the data on a different line if the length is longer than 80
@@ -46,11 +46,13 @@ def dup_remove(headers, duplicate):
         if num not in final_list_d: 
             final_list_d.append(num)
             i+=1
-        else:
+        elif num in final_list_d:
             values.append(i)
+            print("AA at line " +str((i*2)+2)+ " has a redundancy")
+        else:
+            raise Exception("It's neither in nor out")
     
     j=0
-    print(values)
     if(values.count!=0):
         for each in values:
             headers.pop(each-j)
@@ -89,9 +91,11 @@ data.pop(-1)
 #     THIS IS THE IMPORTANT PART
 #     if you want to change a specific character in the data set
 #
+i = 0
 for each in data:
-    each = each.upper()
-    
+    data[i] = each.upper()
+    i += 1
+
 cleanupstring(data,' ', '_')
 cleanupstring(data,'\t', '_')
 cleanupstring(data,',', '_')
@@ -177,10 +181,6 @@ try:
 except:
     print('thinking')
     
-print(loc)
-print(yes)
-print(len(loc))
-print(len(yes))
 print(len(aaa))
 
 try:
