@@ -50,7 +50,7 @@ def dup_remove(headers, duplicate):
             values.append(i)
             print("AA at line " +str((i*2)+2)+ " has a redundancy")
         else:
-            raise Exception("It's neither in nor out")
+            raise Exception("It's neither in nor out!")
     
     j=0
     if(values.count!=0):
@@ -60,7 +60,7 @@ def dup_remove(headers, duplicate):
         
     i = 0
     for each in headers:
-        headers[i] = '>' + str(i)+each[1:]
+        headers[i] = '>' + str(i)+each[1:59]
         i+=1
     
     dbdict = dict(zip(headers,final_list_d))
@@ -151,13 +151,13 @@ if len(sys.argv) == 2:
     
     #Run the program through signalp
     try:
-        cmd = './signalp -t euk -f short -u .4 %s > OUT.signalp_out' %outputname
+        cmd = './signalp -t euk -f short -u .34 %s > OUT.signalp_out' %outputname
         print('running signalp')
         os.system(cmd)
     except:
         print("Signalp in incorrect location")
         path = input('input path into folder containing signalp (ex: /home/user/destop/path/to/folder) >>')
-        cmd = '%s/signalp -t euk -f short -u .4 %s > OUT.signalp_out' % (path, outputname)
+        cmd = '%s/signalp -t euk -f short -u .34 %s > OUT.signalp_out' % (path, outputname)
         print('rerunning signalp')
         os.system(cmd)
         
