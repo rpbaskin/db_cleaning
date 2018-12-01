@@ -16,7 +16,7 @@ import sys
 #
 #     METHODS
 #
-# # # # # # # # # 
+# # # # # # # # #
 
 #Replaces a bad character in a string with good charaters
 #Asks for a list, bad character, good character
@@ -26,7 +26,7 @@ def cleanupstring(listobj, bad, good):
         if bad in each:
             listobj[i] = each.replace(bad, good)
         i+=1
-        
+
 #Prints out the data on a different line if the length is longer than 80
 def chopper (string, value1, value2):
     if len(string) < value1 or len(string) == value1:
@@ -35,41 +35,41 @@ def chopper (string, value1, value2):
     elif len(string)>value1 & len(string)<value2:
         OUT.write(string[0:80] + '\n')
         chopper(string[80:], 80,160)
-        
-        
+
+
 #TODO
-def dup_remove(headers, duplicate): 
+def dup_remove(headers, duplicate):
     i = 0
     values=[]
     final_list_d = []
-    for num in duplicate: 
-        if num not in final_list_d: 
+    for num in duplicate:
+        if num not in final_list_d:
             final_list_d.append(num)
             i+=1
         elif num in final_list_d:
             values.append(i)
             print("AA at line " +str((i*2)+2)+ " has a redundancy")
         else:
-            raise Exception("It's neither in nor out!")
-    
+            raise Exception("It's neither in nor out")
+
     j=0
     if(values.count!=0):
         for each in values:
             headers.pop(each-j)
-            
-        
+
+
     i = 0
     for each in headers:
-        headers[i] = '>' + str(i)+each[1:59]
+        headers[i] = '>' + str(i)+each[1:]
         i+=1
-    
+
     dbdict = dict(zip(headers,final_list_d))
     return dbdict
-        
-        
+
+
 
     # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-    #                              
+    #
     #                                 MAIN BODY
     #
     # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -77,15 +77,16 @@ def dup_remove(headers, duplicate):
 
 if len(sys.argv) == 2:
     try:
+        path = sys.argv[1]
         file_name = sys.argv[1]
         my_file = open(file_name).read()
         outputname = 'clean_' + file_name
         OUT = open(outputname, 'w')
     except:
         print("filename doesn't exist")
-    
+
     #starts to chop up the input FASTA file for analysis
-    #breaks the long string file into a list  
+    #breaks the long string file into a list
     data = my_file.split('\n')
     data.pop(-1)
     #
@@ -97,7 +98,7 @@ if len(sys.argv) == 2:
     for each in data:
         data[i] = each.upper()
         i += 1
-    
+
     cleanupstring(data,' ', '_')
     cleanupstring(data,'\t', '_')
     cleanupstring(data,',', '_')
@@ -113,7 +114,7 @@ if len(sys.argv) == 2:
         if each == '':
             data.pop(i)
         i+=1
-    
+
     headers = []
     aa = []
     switch = 0
@@ -127,17 +128,17 @@ if len(sys.argv) == 2:
     #zippers the two lists together
     headerset = []
     aaa = []
-    dbdict = dup_remove(headers,aa)  
-        
-    
+    dbdict = dup_remove(headers,aa)
+
+
     #Eliminates reducendies
-    
-    
-    
-    
-    
+
+
+
+
+
     #Turns dictionary into a text file
-    
+
     for key, value in dbdict.items():
         OUT.write(key)
         headerset.append(key)
@@ -145,22 +146,23 @@ if len(sys.argv) == 2:
         OUT.write(value)
         aaa.append(value)
         OUT.write('\n')
-    
+
     OUT.close()
-    
-    
+
+    index = path.find('db_cleaner.py')
+    path = path[0:index]
+
     #Run the program through signalp
-    try:
-        cmd = './signalp -t euk -f short -u .34 %s > OUT.signalp_out' %outputname
-        print('running signalp')
-        os.system(cmd)
-    except:
-        print("Signalp in incorrect location")
-        path = input('input path into folder containing signalp (ex: /home/user/destop/path/to/folder) >>')
-        cmd = '%s/signalp -t euk -f short -u .34 %s > OUT.signalp_out' % (path, outputname)
-        print('rerunning signalp')
-        os.system(cmd)
-        
+    cmd = '%s/signalp -t euk -f short -u .4 %s > OUT.signalp_out' % (path, outputname)
+    print('running signalp')
+    os.system(cmd)
+
+#        print("Signalp in incorrect location")
+#        path = input('input path into folder containing signalp (ex: /home/user/destop/path/to/folder) >>')
+#        cmd = '%s/signalp -t euk -f short -u .4 %s > OUT.signalp_out' % (path, outputname)
+#        print('rerunning signalp')
+#        os.system(cmd)
+
     my_fileXXX = open('OUT.signalp_out').read()
     signalp = []
     #breaks into each row of data
@@ -168,26 +170,26 @@ if len(sys.argv) == 2:
     #changes list into matrix
     for each in step:
         signalp.append(each.split())
-    
+
     #removes extra data
     signalp.remove(signalp[0])
-    signalp.remove(signalp[0])    
+    signalp.remove(signalp[0])
     signalp.pop(-1)
     #assigns values of restriction site and if it occurs
     loc = []
     yes = []
-    try:    
+    try:
         for each in signalp:
             loc.append(each[4])
             yes.append(each[9])
-            
+
         print(loc)
         print(yes)
     except:
         print('thinking')
-        
+
     print(len(aaa))
-    
+
     try:
         i=0
         for each in aaa:
@@ -196,18 +198,18 @@ if len(sys.argv) == 2:
                 #finds and masks the signal sequence
                     signal_sequence = each[0:(int(loc[i])-1)]
                     masked_signal_sequence = signal_sequence.lower()
-                    aaa[i] = each.replace(signal_sequence, masked_signal_sequence)    
+                    aaa[i] = each.replace(signal_sequence, masked_signal_sequence)
             i+=1
     except:
         print('Error, probable cause that signalp ran incorrectly due to similar ' + '\n' + 'header names, contact Paul Baskin')
-    
+
     #zippers the two lists together
     dbdict2 = dict(zip(headerset,aaa))
-    
-    
-    
-    
-    
+
+
+
+
+
     #modifies the text file
     OUT = open(outputname, 'w')
     for key, value in dbdict2.items():
@@ -215,14 +217,14 @@ if len(sys.argv) == 2:
         OUT.write('\n')
         chopper(value, 80, 160)
     OUT.close()
-    
+
     #TODO
     # =============================================================================
     #     #Folds the program.
     #     cmd = 'fold outputname'
     #     print(cmd)
     #     os.system(cmd)
-    #     
+    #
     # =============================================================================
     print('File clean_' + file_name + ' created.' )
     # =============================================================================
