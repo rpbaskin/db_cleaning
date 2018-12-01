@@ -76,14 +76,13 @@ def dup_remove(headers, duplicate):
 
 
 if len(sys.argv) == 2:
-    try:
-        path = sys.argv[1]
-        file_name = sys.argv[1]
-        my_file = open(file_name).read()
-        outputname = 'clean_' + file_name
-        OUT = open(outputname, 'w')
-    except:
-        print("filename doesn't exist")
+    
+    path = sys.argv[1]
+    file_name = sys.argv[1]
+    my_file = open(file_name).read()
+    outputname = 'clean_' + file_name
+    OUT = open(outputname, 'w')
+    
 
     #starts to chop up the input FASTA file for analysis
     #breaks the long string file into a list
