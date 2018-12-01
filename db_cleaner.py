@@ -78,9 +78,11 @@ def dup_remove(headers, duplicate):
 if len(sys.argv) == 2:
     
     path = sys.argv[1]
+    indexpath = path.find('db_cleaner.py')
+    path = path[0:indexpath]
     file_name = sys.argv[1]
     my_file = open(file_name).read()
-    outputname = 'clean_' + file_name
+    outputname = 'clean_' + file_name[indexpath:]
     OUT = open(outputname, 'w')
     
 
@@ -148,8 +150,7 @@ if len(sys.argv) == 2:
 
     OUT.close()
 
-    index = path.find('db_cleaner.py')
-    path = path[0:index]
+    
 
     #Run the program through signalp
     cmd = '%s/signalp -t euk -f short -u .4 %s > OUT.signalp_out' % (path, outputname)
