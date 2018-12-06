@@ -78,11 +78,11 @@ def dup_remove(headers, duplicate):
 if len(sys.argv) == 2:
     
     path = sys.argv[0]
-    indexpath = path.find('db_cleaner.py')
+    indexpath = path.find('db_cleaner_nodups.py')
     paths = path[0:indexpath]
     file_name = sys.argv[1]
     my_file = open(file_name).read()
-    outputname = 'nodups_' + file_name[indexpath:]
+    outputname = 'nodups_' + file_name
     OUT = open(outputname, 'w')
     
 
