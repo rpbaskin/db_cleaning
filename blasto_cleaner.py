@@ -112,7 +112,7 @@ if len(sys.argv) == 2:
         i += 1
 
 #    cleanupstring(data,' ', '_')
-    cleanupstring(data,'\t', ' ')
+    cleanupstring(data,'\t', '_')
 #    cleanupstring(data, '"', '_')
 #    cleanupstring(data, '*', '')
     #cleanupstring(data, '(', '_')
