@@ -153,7 +153,8 @@ if len(sys.argv) == 2:
     
 
     #Run the program through signalp
-    cmd = '%s/signalp -t euk -f short -u .4 %s > OUT.signalp_out' % (paths, outputname)
+    cmd = '%ssignalp -t euk -f short -u .4 %s > OUT.signalp_out' % (paths, outputname)
+    print(cmd)
     print('running signalp')
     os.system(cmd)
 
