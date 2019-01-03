@@ -35,7 +35,7 @@ def rmtrin(d):
             indexstart = each.find('TRINITY')
             if each.find("SUPFAM:PUTATIVE") != -1:
                 indexend = each.find("SUPFAM:PUTATIVE")
-                d[i] = each[:indexstart+7]+each[indexend-1:indexend+7]+each[indexend+15:]
+                d[i] = each[:indexstart+7]+each[indexend-1:indexend+7]+each[indexend+16:]
             else:
                 indexend = each.find('SUPFAM:')
                 d[i] = each[:indexstart+7]+each[indexend-1:]
