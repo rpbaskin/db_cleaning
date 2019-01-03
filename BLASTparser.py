@@ -117,6 +117,7 @@ if len(sys.argv) == 3:
     for a,b,c in zip(temp,temp25,temp10):
         OUT.write(str(a)[1:-1] + ',' + str(round(a[1]/totalhits*100,2))+'%' + ',' + str(b)[1:-1] + ',' +str(round(b[1]/totalhits*100*4*1.1848,2))+'%' + ',' + str(c)[1:-1] + ',' + str(round(c[1]/totalhits*100*10,2))+'%')
         OUT.write('\n')
+    OUT.write('\n')
     
               
               
