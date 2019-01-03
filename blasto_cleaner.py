@@ -33,8 +33,12 @@ def rmtrin(d):
     for each in d:
         if each.find('TRINITY') != -1:
             indexstart = each.find('TRINITY')
-            indexend = each.find('SUPFAM:')
-            d[i] = each[:indexstart+7]+each[indexend-1:]
+            if each.find("SUPFAM:PUTATIVE") != -1
+                indexend = each.find("SUPFAM:PUTATIVE")
+                d[i] = each[:indexstart+7]+each[indexend-1:indexend+7]+each[indexend+15:]
+            else:
+                indexend = each.find('SUPFAM:')
+                d[i] = each[:indexstart+7]+each[indexend-1:]
             i+=1
 
 #Prints out the data on a different line if the length is longer than 80
