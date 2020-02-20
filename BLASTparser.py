@@ -5,11 +5,12 @@ Created on Fri Dec  7 14:32:49 2018
 
 BLASTparser
 
+A basic statisical analysis to cut any blasto output that has a supfam and TPM
+Creates a csv file with percentages and distributions of SupFams
 
 @author: pbaskin
 """
 import sys 
-import itertools
 from collections import defaultdict
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -115,7 +116,7 @@ if len(sys.argv) == 3:
     OUT.write("file input: " + file_name + '\n' + "database type: " + sys.argv[2] + '\n' + "total hits: " + str(totalhits) +',,,top 25%,,,top 10%\n')
     OUT.write("SupFam,num_hits,percent_hit\n")
     for a,b,c in zip(temp,temp25,temp10):
-        OUT.write(str(a)[1:-1] + ',' + str(round(a[1]/totalhits*100,2))+'%' + ',' + str(b)[1:-1] + ',' +str(round(b[1]/totalhits*100*4*1.1848,2))+'%' + ',' + str(c)[1:-1] + ',' + str(round(c[1]/totalhits*100*10,2))+'%')
+        OUT.write(str(a)[1:-1] + ',' + str(round(a[1]/totalhits*100,2))+'%' + ',' + str(b)[1:-1] + ',' +str(round(b[1]/totalhits*100*4,2))+'%' + ',' + str(c)[1:-1] + ',' + str(round(c[1]/totalhits*100*10,2))+'%')
         OUT.write('\n')
     OUT.write('\n')
     
